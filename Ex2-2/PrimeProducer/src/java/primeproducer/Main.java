@@ -40,11 +40,8 @@ public class Main {
             listener = new TextListener(session);
             consumer = session.createConsumer(queue);
             
-            consumer.setMessageListener(listener);
 //            Listen to Question From
-            Queue tempDest = session.createTemporaryQueue();
-            MessageConsumer responseConsumer = session.createConsumer(tempDest);
-            responseConsumer.setMessageListener(listener);
+            consumer.setMessageListener(listener);
             
             connection.start();
             String ch = "";
