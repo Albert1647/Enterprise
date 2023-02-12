@@ -50,10 +50,11 @@ public class Main {
             String ch = "";
             Scanner inp = new Scanner(System.in);
 //          create producer
-            System.out.println("Press q to quit ");
+            System.out.println("Press enter to quit");
+            System.out.println("Enter two numbers, Use ',' to separate each number. To end the program press enter");
             while (true) {
                 ch = inp.nextLine();
-                if (ch.equals("q")) {
+                if (ch.isEmpty()) {
                     break;
                 }
                 message = session.createTextMessage();

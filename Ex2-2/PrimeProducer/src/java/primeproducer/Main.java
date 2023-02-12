@@ -49,8 +49,9 @@ public class Main {
             connection.start();
             String ch = "";
             Scanner inp = new Scanner(System.in);
+            System.out.print("Press q to quit");
+            
             while (true) {
-                System.out.print("Press q to quit ");
                 ch = inp.nextLine();
                 if (ch.equals("q")) {
                     break;

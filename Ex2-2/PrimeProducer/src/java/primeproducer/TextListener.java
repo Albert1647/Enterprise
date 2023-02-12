@@ -21,7 +21,6 @@ import javax.jms.TextMessage;
  * @author sarun
  */
 public class TextListener implements MessageListener {
-    private static Queue queue;
     private MessageProducer replyProducer;
     private Session session;
 
@@ -50,14 +49,31 @@ public class TextListener implements MessageListener {
             String[] range = msg.getText().split(",");
             if (range.length != 2) {
                 System.out.println("Invalid Range Request");
+                responseMessage = "Invalid Range Request";
+                TextMessage response = session.createTextMessage(responseMessage);
+                System.out.println("sending message " + response.getText());
+                replyProducer.send(message.getJMSReplyTo(), response);
                 return;
             }
             int start = Integer.parseInt(range[0]);
             int end = Integer.parseInt(range[1]);
             if (start > end) {
-                System.out.println("Invalid Range Order");
+                System.out.println("Invalid Range Order a > b");
+                responseMessage = "Invalid Range Order a > b";
+                TextMessage response = session.createTextMessage(responseMessage);
+                System.out.println("sending message " + response.getText());
+                replyProducer.send(message.getJMSReplyTo(), response);
                 return;
             }
+            if (start < 0 || end < 0) {
+                System.out.println("Invalid Range Minus");
+                responseMessage = "Invalid Range Minus";
+                TextMessage response = session.createTextMessage(responseMessage);
+                System.out.println("sending message " + response.getText());
+                replyProducer.send(message.getJMSReplyTo(), response);
+                return;
+            }
+            
             int primeCount = getPrimeCount(start, end);
             responseMessage = "The number of primes between " + range[0] + " and " + range[1] + " is " + primeCount;
             TextMessage response = session.createTextMessage(responseMessage);
@@ -89,4 +105,5 @@ public class TextListener implements MessageListener {
         }
         return true;
     }
+    
 }

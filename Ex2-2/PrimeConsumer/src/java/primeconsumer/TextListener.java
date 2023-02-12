@@ -40,8 +40,7 @@ public class TextListener implements MessageListener {
         try {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
-                System.out.println("Reading message: " + msg.getText() + " "
-                        + msg.getJMSCorrelationID());
+                System.out.println("Reading message: " + msg.getText());
             }
         } catch (JMSException e) {
             System.err.println("JMSException in onMessage(): " + e.toString());
